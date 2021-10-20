@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ytnotes-dev-114905-authRole",
+      "UnauthRoleArn": "arn:aws:iam::903255763497:role/amplify-ytnotes-dev-114905-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::903255763497:role/amplify-ytnotes-dev-114905-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-ytnotes-dev-114905-deployment",
+      "UnauthRoleName": "amplify-ytnotes-dev-114905-unauthRole",
+      "StackName": "amplify-ytnotes-dev-114905",
+      "StackId": "arn:aws:cloudformation:us-west-1:903255763497:stack/amplify-ytnotes-dev-114905/6a2ab970-31d6-11ec-aa84-02afb88b65e5",
+      "AmplifyAppId": "dxvumr34rgtlk"
+    },
+    "categories": {
+      "auth": {
+        "ytnotes58152355": {}
+      }
+    }
+  }
+}
