@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
-import { Typography, Button, Input, message, Card } from 'antd';
+import { Typography, Button, Input, message, Card, Row, Col } from 'antd';
 
 
 //AWS IMPORT
@@ -63,24 +63,36 @@ class App extends Component {
     try {
       await API.graphql(graphqlOperation(mutations.createNote, { input: note }))
       message.success('Note Added')
-      this.setState({ value: "" });
+      this.listNotes()
+      this.setState({ value: "" })
 
     } catch (err) {
       console.log(err)
     }
-    // this.listNotes();
     this.setState({ value: "" });
   }
   //select the current note that a user clicks- bind- takes as variable takes as id variable in state, stores note id, then the value is stored as note.note
   selectNote(note) {
-    this.setState({ id: note.id, value: note.note, displayAdd: false, displayUpdate: true });
+    try {
+      this.setState({ id: note.id, value: note.note, displayAdd: false, displayUpdate: true });
+
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   //takes the ID and then creates object then deletes note from mutations
   async handleDelete(id) {
     const noteId = { "id": id };
-    await API.graphql(graphqlOperation(mutations.deleteNote, { input: noteId }));
-    this.listNotes();
+    try {
+      await API.graphql(graphqlOperation(mutations.deleteNote, { input: noteId }));
+      message.success('Note Deleted')
+      this.listNotes();
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {
@@ -88,18 +100,47 @@ class App extends Component {
     //the key on the item 
     const data = [].concat(this.state.notes)
       .map((item, i) =>
+
         <Card>
-          <span key={item.i} onClick={this.selectNote.bind(this, item)}>{item.note}</span>
-          <Button type="primary" onClick={this.handleDelete.bind(this, item.id)} >Delete</Button>
+          <Row>
+            <Col span={12}>
+              <span key={item.i} onClick={this.selectNote.bind(this, item)}>{item.note}</span>
+            </Col>
+            <Col span={12}>
+              <Button type="primary" onClick={this.handleDelete.bind(this, item.id)} >Delete</Button>
+
+            </Col>
+          </Row>
+
         </Card>
       )
 
+
+
     return <div>
-      <Title>YT Notes App</Title>
-      <Input placeholder="Add a new note" onChange={this.handleChange} />
-      <Button onClick={this.handleSubmit.bind(this)}>Add Note</Button>
-      <hr />
-      {data}
+
+      <Row>
+        <Col span={24}>
+          <Title>YT Notes App</Title>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Input placeholder="Add a new note" value={this.state.value} onChange={this.handleChange} />
+        </Col>
+        <Col>
+          <Button onClick={this.handleSubmit.bind(this)}>Add Note</Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <hr />
+          {data}
+        </Col>
+      </Row>
+
+
     </div>
   }
 }
