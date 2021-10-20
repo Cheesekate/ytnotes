@@ -157,13 +157,13 @@ class App extends Component {
           }
         </Col>
       </Row>
+
       <Row>
         <Col span={24}>
           <hr />
           {data}
         </Col>
       </Row>
-
 
     </div>
   }
