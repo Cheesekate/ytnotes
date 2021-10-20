@@ -71,6 +71,23 @@ class App extends Component {
     }
     this.setState({ value: "" });
   }
+  //creating a note object but the id is supplied- it is stored in state.
+  //note is the value that we have in the state
+  //update the note 
+  async handleUpdate(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const note = { "id": this.state.id, "note": this.state.value };
+    try {
+      await API.graphql(graphqlOperation(mutations.updateNote, { input: note }));
+      this.setState({ displayAdd: true, displayUpdate: false, value: "" });
+      message.success('Note updated')
+      this.listNotes();
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   //select the current note that a user clicks- bind- takes as variable takes as id variable in state, stores note id, then the value is stored as note.note
   selectNote(note) {
     try {
@@ -95,16 +112,18 @@ class App extends Component {
     }
   }
 
+
+
   render() {
     //create variable called data loops through all of notes have in state
     //the key on the item 
     const data = [].concat(this.state.notes)
       .map((item, i) =>
 
-        <Card>
+        <Card onClick={this.selectNote.bind(this, item)}>
           <Row>
             <Col span={12}>
-              <span key={item.i} onClick={this.selectNote.bind(this, item)}>{item.note}</span>
+              <span key={item.i}>{item.note}</span>
             </Col>
             <Col span={12}>
               <Button type="primary" onClick={this.handleDelete.bind(this, item.id)} >Delete</Button>
@@ -119,6 +138,7 @@ class App extends Component {
 
     return <div>
 
+
       <Row>
         <Col span={24}>
           <Title>YT Notes App</Title>
@@ -130,7 +150,11 @@ class App extends Component {
           <Input placeholder="Add a new note" value={this.state.value} onChange={this.handleChange} />
         </Col>
         <Col>
-          <Button onClick={this.handleSubmit.bind(this)}>Add Note</Button>
+          {this.state.displayUpdate ?
+            <Button type="primary" onClick={this.handleUpdate.bind(this)}>Update Note</Button>
+
+            : <Button onClick={this.handleSubmit.bind(this)}>Add Note</Button>
+          }
         </Col>
       </Row>
       <Row>
