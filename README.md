@@ -1,7 +1,7 @@
 <p> The app can be ran <a href= "https://main.dxvumr34rgtlk.amplifyapp.com/" target="_blank" > here. </a>  </p> 
 
-https://main.dxvumr34rgtlk.amplifyapp.com/
-
+<p> The app can be ran <a href= "https://main.dxvumr34rgtlk.amplifyapp.com/" target="_blank" > At: https://main.dxvumr34rgtlk.amplifyapp.com/
+ </a>  </p> 
 This app uses AWS and react to create an application that saves, edits, and deletes notes.
 
 Below shows the user logging in- via AWS and confirming their account
